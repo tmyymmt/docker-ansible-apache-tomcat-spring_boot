@@ -1,0 +1,43 @@
+----------------------------------
+Rocky Linux 9.3で使用する、Ansibleのplaybookファイルを作成。
+
+Ansibleはローカルで実行する。
+connection: localを指定する。
+適宜 block: を使用して、タスクをグループ化する。
+
+下記をインストールして、設定する。
+バージョン未指定のものは、最初のタスクでまとめてdnfでインストールする。
+oracle jdk は https://download.oracle.com/java/21/archive/ で始まるURLからダウンロードすること。
+apache http serverと、tomcat は https://archive.apache.org/dist/ で始まるURLからダウンロードすること。
+ソースをダウンロードする場合は /usr/local/src にダウンロードし、 /usr/local にインストールすること。
+バージョンは、上部にまとめて変数定義にすること。
+URLは、バージョンの変数を使用し、上部にまとめて変数定義にすること。
+シェルのコマンドは1行を1タスクで記述すること。
+・emacs
+・w3m
+・openssl-dev
+・maven
+　・mvnにPATHを通す
+・oracle jdk 21.0.1
+　・JAVA_HOME を設定する
+　・javaにPATHを通す
+・apr 1.7.04
+　・ソースからビルド
+・apr-util 1.6.3
+　・ソースからビルド
+・apache http server 2.4.60
+　・mod_proxy、mod_proxy_http、mod_proxy_ajpを有効に
+　・ソースからビルド
+　・サーバ名は localhost
+　・httpsについて
+　　・SSL/TLSでアクセスできるようにキー生成して設定
+　　・SSL/TLSのアクセスは、tomcatにajpで渡す。ajp には secretRequired="false" を設定
+　・httpについて
+　　・httpアクセスはhttpsにリダイレクト
+・tomcat 10.1.15
+　・ajpを有効に
+
+apache http serverとtomcatはsystemdで管理できるように設定する。
+
+----------------------------------
+ansibleで、 /opt/project にあるmavenプロジェクトをビルドして、 /usr/local/tomcat/webapp にデプロイ

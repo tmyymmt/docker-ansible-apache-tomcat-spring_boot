@@ -1,0 +1,21 @@
+version: '3'
+services:
+  web:
+    container_name: web
+    build:
+      context: .
+      dockerfile: Dockerfile
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+      - ./project:/opt/project:rw
+      - ./ansible:/opt/ansible:rw
+    tmpfs:
+      - /run
+      - /run/lock
+    security_opt:
+      - seccomp:unconfined
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+      - "8443:443"
