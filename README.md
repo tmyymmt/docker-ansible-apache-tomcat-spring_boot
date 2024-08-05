@@ -22,13 +22,22 @@ The environment is constructed using versions that contain vulnerabilities.
     docker compose up -d
     docker exec -it web /bin/bash
     ```
-
 2. Inside the web container, run the following commands.
 
-    ```shell
-    cd /opt/ansible
-    ansible-playbook install.yml
-    ansible-playbook deploy.yml
-    ```
+    You can choose project type from the following.
+
+   - Maven Project
+       ```shell
+       cd /opt/ansible-maven
+       ansible-playbook install.yml
+       ansible-playbook deploy.yml
+       ```
+
+   - Gralde Project
+       ```shell
+       cd /opt/ansible-gradle
+       ansible-playbook install.yml
+       ansible-playbook deploy.yml
+       ```
 
 3. Access https://localhost:8443/ .

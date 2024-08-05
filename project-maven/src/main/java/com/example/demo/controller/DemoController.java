@@ -8,7 +8,7 @@ public class DemoController {
 
     @GetMapping("/")
     public String helloWorld() {
-        return "Hello, World!";
+        return "Hello, World! Maven project with Spring Boot.";
     }
 
     @GetMapping("/health")

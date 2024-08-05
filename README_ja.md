@@ -26,7 +26,7 @@ DockerとAnsibleで構築した環境に、Spring Bootアプリケーション�
 2. webコンテナ内で以下のコマンドを実行する。
 
     ```shell
-    cd /opt/ansible
+    cd /opt/ansible-maven
     ansible-playbook install.yml
     ansible-playbook deploy.yml
     ```

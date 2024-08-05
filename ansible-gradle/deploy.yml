@@ -1,0 +1,51 @@
+---
+- name: Build and deploy the project
+  hosts: localhost
+  connection: local
+  become: yes
+
+  vars:
+    tomcat_version: "10.1.15"
+    project_path: /opt/project-gradle
+    tomcat_webapp_path: "/usr/local/apache-tomcat-{{ tomcat_version }}/webapps"
+    war_file_name: ROOT.war
+
+  tasks:
+    - name: Ensure the file is executable
+      file:
+        path: "{{ project_path }}/gradlew"
+        mode: '0755'
+
+    - name: Build gradle project
+      shell: |
+        source /etc/profile
+        ./gradlew clean war
+      args:
+        chdir: "{{ project_path }}"
+
+    - name: Remove all files and directories in webapps
+      file:
+        path: "{{ tomcat_webapp_path }}"
+        state: absent
+
+    - name: Recreate the webapps directory
+      file:
+        path: "{{ tomcat_webapp_path }}"
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Copy WAR file to Tomcat webapps directory
+      copy:
+        src: "{{ project_path }}/build/libs/{{ war_file_name }}"
+        dest: "{{ tomcat_webapp_path }}/{{ war_file_name }}"
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Restart Tomcat service
+      systemd:
+        name: tomcat
+        state: restarted
+        enabled: yes

@@ -14,8 +14,10 @@ ENV container docker
 
 # cgroupディレクトリをマウント
 VOLUME [ "/sys/fs/cgroup" ]
-VOLUME [ "/opt/project" ]
-VOLUME [ "/opt/ansible" ]
+VOLUME [ "/opt/project-maven" ]
+VOLUME [ "/opt/project-gradle" ]
+VOLUME [ "/opt/ansible-maven" ]
+VOLUME [ "/opt/ansible-gradle" ]
 
 CMD ["ansible", "--version"]
 

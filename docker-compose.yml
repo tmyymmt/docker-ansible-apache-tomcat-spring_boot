@@ -8,8 +8,10 @@ services:
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
-      - ./project:/opt/project:rw
-      - ./ansible:/opt/ansible:rw
+      - ./project-maven:/opt/project-maven:rw
+      - ./project-gradle:/opt/project-gradle:rw
+      - ./ansible-maven:/opt/ansible-maven:rw
+      - ./ansible-gradle:/opt/ansible-gradle:rw
     tmpfs:
       - /run
       - /run/lock
