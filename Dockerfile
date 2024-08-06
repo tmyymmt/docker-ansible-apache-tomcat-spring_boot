@@ -1,4 +1,3 @@
-# ベースイメージとしてRocky Linux 8.6を使用
 FROM rockylinux:9.3
 
 RUN dnf update -y && \
